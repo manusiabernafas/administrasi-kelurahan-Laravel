@@ -1,0 +1,57 @@
+Deskripsi
+Aplikasi pelayanan administrasi kelurahan (bisa juga untuk desa) berbasis Laravel 12 dan MySQL. Warga mendaftar dengan NIK, mengajukan surat keterangan dari HP, memantau prosesnya dengan kode lacak, lalu mengunduh surat PDF bernomor resmi yang dilengkapi kode QR verifikasi keaslian.
+
+Petugas bekerja dari dasbor yang sederhana: memproses permohonan, melayani warga di loket, mengelola data penduduk dengan impor Excel, menanggapi pengaduan, menerbitkan kabar, dan mencetak laporan bulanan. Dilengkapi landing page modern, delapan jenis surat siap pakai yang bisa ditambah sendiri, data contoh lengkap, dan panduan instalasi XAMPP.
+Cara kerja
+Situs publik menampilkan layanan, alur pelayanan, statistik, kabar, jam layanan, peta, dan tanya jawab. Siapa pun bisa mengecek status permohonan atau pengaduan memakai kode lacak, dan memindai kode QR di surat untuk membuka halaman verifikasi yang menampilkan nomor, jenis surat, dan nama pemiliknya.
+
+Warga membuat akun dengan NIK dan tanggal lahir yang dicocokkan dengan data penduduk kelurahan. Setelah masuk, warga memilih jenis surat, mengisi keperluan dan isian khusus (misalnya nama usaha untuk Surat Keterangan Usaha), lalu mengunggah foto berkas. Berkas disimpan privat dan hanya bisa dibuka pemohon serta petugas. Status permohonan berjalan dari diajukan, diverifikasi, diproses, hingga selesai atau ditolak dengan catatan, dan setiap perubahan tercatat di riwayat.
+
+Saat petugas menandai permohonan selesai, sistem membuat nomor surat urut per tahun (misalnya 012/SKD/KL-SKM/X/2026) tanpa risiko ganda, lalu surat PDF lengkap dengan kop, logo, data penduduk, isi surat dari template, tanda tangan lurah, dan QR verifikasi siap diunduh warga. Petugas juga bisa membuat permohonan langsung di loket, mengelola jenis layanan beserta template isi suratnya, mengimpor data penduduk dari CSV, menanggapi pengaduan, menjadwalkan kabar, mengatur akun petugas, serta mencetak rekap bulanan dan buku register surat keluar.
+Fitur
+Landing page modern dan responsif: layanan, alur, statistik, kabar, jam layanan, peta, FAQ
+Daftar akun warga dengan NIK + tanggal lahir yang dicocokkan ke data penduduk
+Ajukan surat online dari HP dengan isian khusus per jenis surat dan unggah berkas
+8 jenis surat siap pakai: domisili, SKTM, pengantar SKCK, usaha, belum menikah, kelahiran, kematian, pindah
+Jenis layanan bisa ditambah sendiri: syarat, isian tambahan, dan template isi surat
+Alur status jelas: diajukan, diverifikasi, diproses, selesai atau ditolak dengan catatan
+Cek status permohonan & pengaduan dengan kode lacak tanpa login
+Nomor surat otomatis urut per tahun, aman dari nomor ganda
+Surat PDF dengan kop, logo, tanda tangan lurah, dan QR verifikasi keaslian
+Halaman verifikasi surat untuk instansi penerima
+Layanan loket: petugas membuatkan permohonan dan surat langsung terbit
+Data penduduk lengkap: cari, filter RW, anggota KK, riwayat surat
+Impor data penduduk dari Excel (CSV) dengan laporan baris yang salah
+Pengaduan warga dengan foto, tanggapan petugas bisa dilihat pelapor
+Kabar & pengumuman dengan gambar dan jadwal tayang
+Dasbor petugas: antrean, grafik 14 hari, layanan terbanyak
+Laporan bulanan + buku register surat keluar (cetak & CSV)
+Peran admin & petugas, tambah petugas, reset sandi, blokir akun warga
+Pengaturan identitas kelurahan, logo kop, nama & NIP lurah, kode surat
+Keamanan: CSRF, batas percobaan masuk, berkas privat, validasi file, CSV aman
+Data contoh lengkap: 150+ penduduk, 60+ permohonan, kabar, pengaduan
+Panduan instalasi
+Kebutuhan: PHP 8.2 atau lebih baru (XAMPP 8.2+ / Laragon), MySQL/MariaDB, dan Composer (Laragon sudah menyertakannya).
+
+Ekstrak ZIP lalu pindahkan folder layanan-kelurahan ke C:\xampp\htdocs\layanan-kelurahan (atau C:\laragon\www\layanan-kelurahan).
+
+Nyalakan Apache dan MySQL dari XAMPP Control Panel.
+
+Jalankan setup:
+
+Windows: klik dua kali setup.bat (atau buka Shell di XAMPP Control Panel, masuk ke folder project, lalu ketik setup.bat).
+Linux/macOS: bash setup.sh
+Script ini menjalankan composer install (jika folder vendor belum ada), membuat file .env, kunci aplikasi, database layanan_kelurahan, tabel, dan data contoh.
+
+Buka http://localhost/layanan-kelurahan lalu masuk di /masuk:
+
+Admin: admin@kelurahan.test / admin123
+Petugas: petugas@kelurahan.test / petugas123
+Warga: NIK 3273010101900001 / warga123
+Buka Pengaturan kelurahan untuk mengisi nama kelurahan, logo, nama & NIP lurah, dan kode nomor surat. Ganti kata sandi admin.
+
+Tanpa XAMPP: jalankan bash setup.sh lalu php artisan serve, buka http://127.0.0.1:8000.
+
+Jika user/password MySQL berbeda, ubah DB_USERNAME dan DB_PASSWORD di file .env lalu jalankan setup lagi.
+
+Untuk hosting: arahkan document root ke folder public/, ubah APP_URL di .env, pastikan APP_ENV=production dan APP_DEBUG=false, serta folder storage/ dan public/uploads/ bisa ditulis.

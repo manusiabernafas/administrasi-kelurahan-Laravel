@@ -1,0 +1,8 @@
+@extends('panel', ['judul' => 'Jenis layanan', 'sub' => 'Atur jenis surat, syarat, isian, dan isi surat'])
+@section('aksi')<a class="btn lime" href="{{ route('admin.layanan.create') }}">{!! ikon('plus') !!} Tambah layanan</a>@endsection
+@section('isi')
+<div class="kartu"><div class="tabel-wrap"><table class="tabel"><thead><tr><th>Layanan</th><th class="hp-sembunyi">Kode</th><th class="hp-sembunyi">Estimasi</th><th class="hp-sembunyi">Dipakai</th><th>Status</th><th></th></tr></thead><tbody>
+  @foreach ($daftar as $l)<tr><td><div style="display:flex;gap:10px;align-items:center"><span class="stat" style="padding:0;border:0;background:none"><span class="ikon" style="margin:0">{!! ikon($l->ikon) !!}</span></span><span><b>{{ $l->nama }}</b><div class="kecil muted">{{ \Illuminate\Support\Str::limit($l->ringkas, 70) }}</div></span></div></td><td class="hp-sembunyi kode">{{ $l->kode }}</td><td class="hp-sembunyi">{{ $l->estimasi_hari ? $l->estimasi_hari . ' hari' : 'Hari itu' }}</td><td class="hp-sembunyi">{{ $l->permohonan_count }}x</td><td>{!! lencana($l->aktif ? 'Aktif' : 'Nonaktif', $l->aktif ? 'hijau' : 'abu') !!}</td>
+    <td class="aksi"><a class="btn garis kecil" href="{{ route('admin.layanan.edit', $l) }}">{!! ikon('edit') !!}<span class="hp-sembunyi">Ubah</span></a> @if (! $l->permohonan_count)<form method="post" action="{{ route('admin.layanan.destroy', $l) }}" data-yakin="Hapus layanan {{ $l->nama }}?">@csrf @method('DELETE')<button class="btn merah kecil" aria-label="Hapus">{!! ikon('hapus') !!}</button></form>@endif</td></tr>@endforeach
+</tbody></table></div></div>
+@endsection
